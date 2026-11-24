@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-test:
+    name: Lint und Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10
+        with:
+          enable-cache: true
+
+      # --locked: bricht ab, wenn uv.lock nicht zu pyproject.toml passt
+      - name: Abhängigkeiten installieren
+        run: uv sync --locked
+
+      - name: ruff check (Lint)
+        run: uv run ruff check .
+
+      - name: ruff format (Formatprüfung)
+        run: uv run ruff format --check .
+
+      - name: pytest
+        run: uv run pytest
+
+  gitleaks:
+    name: Secret-Scan (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write # gitleaks kommentiert Funde im PR
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # ganze Historie, nicht nur der letzte Commit
+
+      - uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
