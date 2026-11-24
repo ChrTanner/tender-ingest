@@ -13,6 +13,13 @@
 - Fehlgeschlagene Checks blockieren den Merge in `main` (Branch Protection); Arbeit über Branch → PR.
 - gitleaks von Anfang an, damit Secrets nicht unbemerkt ins Repo gelangen.
 
+**Entscheidungen (Claude, auf Wunsch von Christian)**
+- GitHub Actions per Commit-SHA gepinnt (Schutz gegen umgehängte Tags), Updates per Dependabot (wöchentlich).
+
+**Was nicht funktioniert hat**
+- Erster CI-Lauf rot: `astral-sh/setup-uv@v10` existiert nicht, setup-uv veröffentlicht nur exakte Tags.
+  Behoben durch SHA-Pinning.
+
 **Offene Punkte**
 - Branch Protection für `main` in GitHub einrichten (nach dem ersten CI-Lauf).
 - ADR-0001 freigeben.
