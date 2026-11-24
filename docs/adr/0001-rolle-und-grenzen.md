@@ -1,6 +1,6 @@
 # ADR-0001: Rolle und Grenzen von tender-ingest
 
-- Status: Entwurf (Freigabe durch Christian offen)
+- Status: Akzeptiert
 - Datum: 2026-11-24
 - Entscheider: Christian
 
@@ -22,7 +22,11 @@ nachgelagerten Repos bereitstellen.
 
 ## Entscheidung
 
-Option 1 (laut Projektvorgabe in `CLAUDE.md`).
+Option 1.
+
+Begründung: Unveränderte Rohdaten erlauben es, nachgelagert jederzeit neu zu rechnen, ohne TED erneut
+abzufragen. Fehler in der Aufbereitung oder später benötigte Felder (z. B. BT-15) lassen sich so auch für
+bereits abgeholte Bekanntmachungen nachholen. Ohne Rohdaten wären diese Daten verloren.
 
 tender-ingest ist zuständig für:
 - Abruf von der TED Search API (`POST https://api.ted.europa.eu/v3/notices/search`).
@@ -42,4 +46,6 @@ später aus `tender-contracts`.
 - Nachgelagerte Repos (z. B. `tender-doc-extractor`) können jederzeit neu aus den Rohdaten
   rechnen, ohne TED erneut abzufragen.
 - Das Ablageformat der Rohdaten wird zur Schnittstelle und muss stabil bleiben.
+- Nachgelagerte Repos müssen selbst mit dem gemischten Format (eForms und altes TED-Schema) umgehen.
+  Ändert TED das Format, sind alle Leser der Rohdaten betroffen. Abfedern soll das später `tender-contracts`.
 - Speicherbedarf wächst, weil nichts weggefiltert wird.

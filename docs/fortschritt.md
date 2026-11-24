@@ -1,6 +1,6 @@
 # Fortschritt tender-ingest
 
-## AP1 – Repo-Grundgerüst (2026-11-24)
+## AP1 – Repo-Grundgerüst (2026-11-24) – abgeschlossen
 
 **Ergebnis**
 - uv-Paket `src/tender_ingest/`, Python 3.14, Build-Backend `uv_build`.
@@ -21,6 +21,8 @@
   Behoben durch SHA-Pinning.
 
 **Offene Punkte**
-- Branch Protection für `main` in GitHub einrichten (nach dem ersten CI-Lauf).
-- ADR-0001 freigeben.
-- CI grün bestätigen.
+- Branch Protection (Ruleset für `main`): Wirksamkeit mit dem PR zu ADR-0001 prüfen.
+
+**Stand bei Abschluss**
+- `uv run pytest` läuft, CI grün (PR #1).
+- ADR-0001 „Rolle und Grenzen“ akzeptiert.
