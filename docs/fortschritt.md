@@ -14,15 +14,24 @@
 - gitleaks von Anfang an, damit Secrets nicht unbemerkt ins Repo gelangen.
 
 **Entscheidungen (Claude, auf Wunsch von Christian)**
-- GitHub Actions per Commit-SHA gepinnt (Schutz gegen umgehängte Tags), Updates per Dependabot (wöchentlich).
+- GitHub Actions per Commit-SHA gepinnt (Schutz gegen umgehängte Tags).
 
 **Was nicht funktioniert hat**
 - Erster CI-Lauf rot: `astral-sh/setup-uv@v10` existiert nicht, setup-uv veröffentlicht nur exakte Tags.
   Behoben durch SHA-Pinning.
 
 **Offene Punkte**
-- Branch Protection (Ruleset für `main`): Wirksamkeit mit dem PR zu ADR-0001 prüfen.
+- keine
 
 **Stand bei Abschluss**
 - `uv run pytest` läuft, CI grün (PR #1).
 - ADR-0001 „Rolle und Grenzen“ akzeptiert.
+
+## Arbeitsweise angepasst (2026-11-25)
+
+**Entscheidung (Christian)**
+- Kein PR-Ablauf mehr: Ruleset für `main` entfernt, Änderungen gehen direkt auf `main`.
+  Grund: Fokus auf technisches Verständnis der KI-Use-Cases, nicht auf Entwickler-Workflow.
+- CI (ruff, pytest, gitleaks) läuft weiter nach jedem Push auf `main`.
+- Dependabot entfernt (würde wöchentlich PRs öffnen). Folge: Action-Versionen werden nicht automatisch aktualisiert.
+- Routine-Tooling entscheidet Claude mit kurzer Begründung; Daten-, Architektur- und KI-Fragen entscheidet Christian.

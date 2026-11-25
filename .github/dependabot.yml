@@ -1,7 +1,0 @@
-version: 2
-updates:
-  # Hält die per SHA gepinnten GitHub Actions aktuell (öffnet PRs mit neuem SHA + Versionskommentar)
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: weekly
