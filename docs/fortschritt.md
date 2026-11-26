@@ -35,3 +35,22 @@
 - CI (ruff, pytest, gitleaks) läuft weiter nach jedem Push auf `main`.
 - Dependabot entfernt (würde wöchentlich PRs öffnen). Folge: Action-Versionen werden nicht automatisch aktualisiert.
 - Routine-Tooling entscheidet Claude mit kurzer Begründung; Daten-, Architektur- und KI-Fragen entscheidet Christian.
+
+## AP2 – Spike: Zugang und Mengen (2026-11-26) – fast abgeschlossen
+
+**Ergebnis**
+- Spike-Skript `spike/fetch_ai_tenders.py`: Suche (Seitenmodus) + XML je Bekanntmachung nach
+  `data/raw/<datum>/<nummer>.xml`, Protokoll und Messwerte unter `data/runs/<zeitstempel>/`.
+- 36 KI-Ausschreibungen (EU-27, 19.–25.11.2026), 0 % Fehler, 37 s Laufzeit. Details in `docs/spike-ted.md`.
+- Frage B beantwortet: ca. 7 pro Veröffentlichungstag, Seitenmodus reicht.
+
+**Entscheidungen (Christian)**
+- Use Case gewechselt: KI-Ausschreibungen statt Tiefbau Oberbayern (ADR-0002, Entwurf).
+- Filter: nur Ausschreibungen, alle EU-Länder, alle CPV, letzte 7 Tage, „KI“ in 24 Sprachen; Recall vor Precision.
+- Rohdaten = vollständiges XML (nicht die Suchantwort), damit später neu gerechnet werden kann.
+
+**Offene Punkte**
+- Frage A: Abfrage in der TED-Expertensuche prüfen (Christian).
+- ADR-0002 freigeben.
+- Zielprofil des KMU für KI-Ausschreibungen festlegen (Planungsprojekt).
+- 12 Sprachen ohne Treffer: andere Begriffe nötig? (AP3)
